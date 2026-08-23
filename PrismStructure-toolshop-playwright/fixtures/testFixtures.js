@@ -1,5 +1,8 @@
 const { test: base, expect } = require('@playwright/test');
 const { AuthApiPage } = require('../api/authApiPage');
+const { CartsApiPage } = require('../api/cartsApiPage');
+const { InvoicesApiPage } = require('../api/invoicesApiPage');
+const { PostcodesApiPage } = require('../api/postcodesApiPage');
 const { ProductsApiPage } = require('../api/productsApiPage');
 const { CartPage } = require('../pages/cartPage');
 const { CatalogPage } = require('../pages/catalogPage');
@@ -33,6 +36,15 @@ const test = base.extend({
   },
   authApi: async ({ request }, use) => {
     await use(new AuthApiPage(request));
+  },
+  cartsApi: async ({ request }, use) => {
+    await use(new CartsApiPage(request));
+  },
+  invoicesApi: async ({ request }, use) => {
+    await use(new InvoicesApiPage(request));
+  },
+  postcodesApi: async ({ request }, use) => {
+    await use(new PostcodesApiPage(request));
   },
   productsApi: async ({ request }, use) => {
     await use(new ProductsApiPage(request));

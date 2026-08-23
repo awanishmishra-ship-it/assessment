@@ -1,20 +1,32 @@
 const { test, expect } = require('../../fixtures/testFixtures');
-const testData = require('../../testdata/toolshopData');
-
 test('TC-API-01 @smoke products can be retrieved', async ({ productsApi }) => {
   const response = await productsApi.getProducts({
     between: 'price,1,100',
-    by_name: testData.products.primary,
+    sort: 'name,asc',
   });
 
-  expect(response.ok()).toBeTruthy();
+  expect(response.status()).toBe(200);
 
   const body = await response.json();
-  expect(body.data).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({ name: expect.stringContaining('Claw Hammer') }),
-    ]),
+  expect(body).toEqual(
+    expect.objectContaining({
+      current_page: expect.any(Number),
+      data: expect.any(Array),
+      total: expect.any(Number),
+    }),
   );
+  expect(body.data.length).toBeGreaterThan(0);
+  body.data.forEach((product) => {
+    expect(product).toEqual(
+      expect.objectContaining({
+        id: expect.any(String),
+        name: expect.any(String),
+        price: expect.any(Number),
+      }),
+    );
+    expect(product.price).toBeGreaterThanOrEqual(1);
+    expect(product.price).toBeLessThanOrEqual(100);
+  });
 });
 
 test('TC-API-02 @regression unknown product returns not found', async ({

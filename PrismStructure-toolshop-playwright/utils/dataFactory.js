@@ -1,9 +1,11 @@
+const { randomUUID } = require('node:crypto');
+
 function uniqueEmail(prefix = 'qa.ui') {
-  return `${prefix}.${Date.now()}.${process.pid}@example.com`;
+  return `${prefix}.${Date.now()}.${randomUUID().slice(0, 8)}@example.com`;
 }
 
-function uniqueUser() {
-  const stamp = `${Date.now()}${process.pid}`.slice(-8);
+function uniqueUser(prefix = 'qa.ui') {
+  const stamp = `${Date.now()}${randomUUID().replaceAll('-', '')}`.slice(-12);
 
   return {
     firstName: 'Test',
@@ -16,7 +18,7 @@ function uniqueUser() {
     city: 'New York',
     state: 'NY',
     phone: '5555555555',
-    email: uniqueEmail(),
+    email: uniqueEmail(prefix),
     password: `Qa#${stamp}Aa1`,
   };
 }
