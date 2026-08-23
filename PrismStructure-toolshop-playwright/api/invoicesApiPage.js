@@ -1,9 +1,13 @@
 const { BaseApiPage } = require('./baseApiPage');
 
 class InvoicesApiPage extends BaseApiPage {
-  createInvoice(token, invoice) {
+  createInvoice(token, invoice = {}, options = {}) {
+    const headers = options.omitAuth
+      ? undefined
+      : this.authorizationHeader(token);
+
     return this.request.post('/invoices', {
-      headers: this.authorizationHeader(token),
+      headers,
       data: {
         billing_street: invoice.billingStreet,
         billing_city: invoice.billingCity,

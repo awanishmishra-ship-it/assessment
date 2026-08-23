@@ -1,4 +1,5 @@
 const { test, expect } = require('../../fixtures/testFixtures');
+
 test('TC-API-01 @smoke products can be retrieved', async ({ productsApi }) => {
   const response = await productsApi.getProducts({
     between: 'price,1,100',
@@ -29,10 +30,19 @@ test('TC-API-01 @smoke products can be retrieved', async ({ productsApi }) => {
   });
 });
 
-test('TC-API-02 @regression unknown product returns not found', async ({
+test('TC-API-02 @regression unknown product and cart IDs return not found', async ({
+  cartsApi,
   productsApi,
 }) => {
-  const response = await productsApi.getProduct('unknown-product-id');
+  const productResponse = await productsApi.getProduct('unknown-product-id');
+  expect(productResponse.status()).toBe(404);
+  expect(await productResponse.json()).toEqual({
+    message: 'Requested item not found',
+  });
 
-  expect(response.status()).toBe(404);
+  const cartResponse = await cartsApi.getCart('unknown-cart-id');
+  expect(cartResponse.status()).toBe(404);
+  expect(await cartResponse.json()).toEqual({
+    message: 'Requested item not found',
+  });
 });
