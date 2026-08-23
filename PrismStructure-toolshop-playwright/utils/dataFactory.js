@@ -1,5 +1,5 @@
 function uniqueEmail(prefix = 'qa.ui') {
-  return `${prefix}+${Date.now()}-${process.pid}@example.com`;
+  return `${prefix}.${Date.now()}.${process.pid}@example.com`;
 }
 
 function uniqueUser() {
@@ -17,7 +17,7 @@ function uniqueUser() {
     state: 'NY',
     phone: '5555555555',
     email: uniqueEmail(),
-    password: 'Test@1234',
+    password: `Qa#${stamp}Aa1`,
   };
 }
 

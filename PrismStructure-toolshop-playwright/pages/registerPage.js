@@ -1,4 +1,5 @@
 const { BasePage } = require('./basePage');
+const { expect } = require('@playwright/test');
 
 class RegisterPage extends BasePage {
   constructor(page) {
@@ -17,6 +18,7 @@ class RegisterPage extends BasePage {
     this.passwordInput = page.getByTestId('password');
     this.registerButton = page.getByTestId('register-submit');
     this.registerError = page.getByRole('alert');
+    this.postcodeLookupSpinner = page.locator('.spinner-border');
   }
 
   async open() {
@@ -27,15 +29,24 @@ class RegisterPage extends BasePage {
     await this.firstNameInput.fill(user.firstName);
     await this.lastNameInput.fill(user.lastName);
     await this.dobInput.fill(user.dob);
-    await this.countrySelect.selectOption(user.country);
+    await this.countrySelect.selectOption({ value: user.country });
     await this.postalCodeInput.fill(user.postalCode);
+
+    const postcodeLookup = this.page.waitForResponse(
+      (response) => /postcode/i.test(response.url()),
+      { timeout: 10_000 },
+    );
     await this.houseNumberInput.fill(user.houseNumber);
+    await postcodeLookup.catch(() => {});
+    await expect(this.postcodeLookupSpinner).toHaveCount(0);
+
     await this.streetInput.fill(user.street);
     await this.cityInput.fill(user.city);
     await this.stateInput.fill(user.state);
     await this.phoneInput.fill(user.phone);
     await this.emailInput.fill(user.email);
     await this.passwordInput.fill(user.password);
+    await this.passwordInput.blur();
     await this.registerButton.click();
   }
 }

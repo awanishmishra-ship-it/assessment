@@ -6,12 +6,13 @@ test('TC-UI-01 @Smoke register a unique user and log in', async ({
   loginPage,
   page,
 }) => {
+  test.setTimeout(60_000);
   const user = uniqueUser();
 
   await registerPage.open();
   await registerPage.register(user);
 
-  await expect(page).toHaveURL(/\/auth\/login/);
+  await expect(page).toHaveURL(/\/auth\/login/, { timeout: 15_000 });
 
   await loginPage.login(user.email, user.password);
 
