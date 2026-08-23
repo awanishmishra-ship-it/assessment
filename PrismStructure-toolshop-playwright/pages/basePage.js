@@ -4,7 +4,10 @@ class BasePage {
   }
 
   async open(path = '/') {
-    await this.page.goto(path);
+    await this.page.goto(path, {
+      waitUntil: 'domcontentloaded',
+      timeout: 30_000,
+    });
   }
 }
 

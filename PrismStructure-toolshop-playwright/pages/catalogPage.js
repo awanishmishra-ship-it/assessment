@@ -1,4 +1,5 @@
 const { BasePage } = require('./basePage');
+const { expect } = require('@playwright/test');
 
 class CatalogPage extends BasePage {
   constructor(page) {
@@ -14,13 +15,7 @@ class CatalogPage extends BasePage {
 
   async search(productName) {
     await this.searchInput.fill(productName);
-    await Promise.all([
-      this.page.waitForResponse(
-        (response) =>
-          response.url().includes('/products') && response.request().method() === 'GET',
-      ),
-      this.searchButton.click(),
-    ]);
+    await this.searchButton.click();
   }
 
   productByName(productName) {
@@ -29,6 +24,7 @@ class CatalogPage extends BasePage {
 
   async openProduct(productName) {
     await this.search(productName);
+    await expect(this.productByName(productName)).toBeVisible();
     await this.productCards.filter({ hasText: productName }).first().click();
     await this.page.waitForURL(/\/product\//);
   }

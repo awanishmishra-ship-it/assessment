@@ -8,6 +8,7 @@ class ProductPage extends BasePage {
     this.quantityInput = page.getByTestId('quantity');
     this.addToCartButton = page.getByTestId('add-to-cart');
     this.cartQuantity = page.getByTestId('cart-quantity');
+    this.outOfStockMessage = page.getByTestId('out-of-stock');
   }
 
   async addToCart(quantity = 1, expectedCartQuantity) {

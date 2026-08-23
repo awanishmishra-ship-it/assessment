@@ -23,7 +23,7 @@ class CheckoutPage extends BasePage {
     await this.proceedFromLogin.click();
   }
 
-  async continueWithAddress(user) {
+  async fillAddress(user) {
     await this.country.selectOption({ value: user.country });
     await this.postalCode.fill(user.postalCode);
 
@@ -37,6 +37,10 @@ class CheckoutPage extends BasePage {
     await expect(this.street).not.toHaveValue('');
     await expect(this.city).not.toHaveValue('');
     await expect(this.state).not.toHaveValue('');
+  }
+
+  async continueWithAddress(user) {
+    await this.fillAddress(user);
     await expect(this.proceedFromAddress).toBeEnabled();
     await this.proceedFromAddress.click();
   }
