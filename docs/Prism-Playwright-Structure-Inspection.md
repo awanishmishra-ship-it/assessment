@@ -94,7 +94,7 @@ Rules when code is written later:
 
 | Kind | Pattern |
 |------|---------|
-| Seeded Smoke user | `customer@practicesoftwaretesting.com` / `welcome01` in testdata JSON or env — not hardcoded in every spec |
+| Seeded Smoke user | public demo customer via env or Toolshop docs — not hardcoded in specs |
 | Invalid login | `customer2@…` only |
 | Registration | Unique email per run |
 | Products | Search by name (`Claw Hammer`, `Combination Pliers`) — not brittle IDs |

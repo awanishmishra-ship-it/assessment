@@ -12,8 +12,20 @@ class ProductPage extends BasePage {
   }
 
   async addToCart(quantity = 1, expectedCartQuantity) {
+    await expect(this.addToCartButton).toBeEnabled();
     await this.quantityInput.fill(String(quantity));
+
+    const itemAdded = this.page.waitForResponse((response) => {
+      const { pathname } = new URL(response.url());
+      return (
+        /\/carts\/[^/]+$/.test(pathname) &&
+        response.request().method() === 'POST' &&
+        response.ok()
+      );
+    });
+
     await this.addToCartButton.click();
+    await itemAdded;
 
     if (expectedCartQuantity !== undefined) {
       await expect(this.cartQuantity).toHaveText(String(expectedCartQuantity));

@@ -76,7 +76,7 @@ Header shape is implied by HTTP Bearer: `Authorization: Bearer <access_token>`. 
 | Field | Type | Example in spec |
 |-------|------|-----------------|
 | `email` | string | `customer@practicesoftwaretesting.com` |
-| `password` | string | `welcome01` |
+| `password` | string | public OpenAPI example (not stored in this suite) |
 
 The login `requestBody` object does **not** set `"required": true` at the body level (unlike register). Required keys are only on the JSON schema.
 

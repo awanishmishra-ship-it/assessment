@@ -30,14 +30,12 @@ class RegisterPage extends BasePage {
     await this.lastNameInput.fill(user.lastName);
     await this.dobInput.fill(user.dob);
     await this.countrySelect.selectOption({ value: user.country });
-    await this.postalCodeInput.fill(user.postalCode);
-
     const postcodeLookup = this.page.waitForResponse(
       (response) => /postcode/i.test(response.url()),
-      { timeout: 10_000 },
     );
+    await this.postalCodeInput.fill(user.postalCode);
     await this.houseNumberInput.fill(user.houseNumber);
-    await postcodeLookup.catch(() => {});
+    await postcodeLookup;
     await expect(this.postcodeLookupSpinner).toHaveCount(0);
 
     await this.streetInput.fill(user.street);

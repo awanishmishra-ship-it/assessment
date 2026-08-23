@@ -28,7 +28,7 @@ Toolshop is an Angular + Bootstrap 5 storefront for hand tools. Guests can brows
 
 - Payment: **Cash on Delivery** only for the required purchase path  
 - Invoice: click **Confirm twice**  
-- Smoke login: seeded `customer@practicesoftwaretesting.com` / `welcome01` (avoids shared-env registration races)
+- Smoke login: public seeded customer (avoids shared-env registration races; password not stored in this repo)
 
 **Live catalog notes used for data:**
 
@@ -161,7 +161,7 @@ Fits **5–8 UI tests**. **3 Smoke**, **4 Regression**. Every required flow area
 
 | Use | Value |
 |-----|--------|
-| Smoke user | `customer@practicesoftwaretesting.com` / `welcome01` |
+| Smoke user | public seeded customer (credentials from Toolshop docs, not this repo) |
 | Register email | `qa.ui+<timestamp>@example.com` |
 | Password | `Test@1234` |
 | Product A | Claw Hammer (in stock) |

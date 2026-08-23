@@ -16,9 +16,13 @@ function expectProduct(product) {
 async function registerAndLogin(authApi) {
   const user = uniqueUser('qa.api');
   const registerResponse = await authApi.register(user);
+  const registerBody = await registerResponse.json().catch(() => ({}));
 
-  expect(registerResponse.status()).toBe(201);
-  const registeredUser = await registerResponse.json();
+  expect(
+    registerResponse.status(),
+    `Registration failed: ${JSON.stringify(registerBody)}`,
+  ).toBe(201);
+  const registeredUser = registerBody;
   expect(registeredUser).toEqual(
     expect.objectContaining({
       id: expect.any(String),

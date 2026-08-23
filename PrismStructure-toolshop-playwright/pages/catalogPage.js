@@ -24,9 +24,11 @@ class CatalogPage extends BasePage {
 
   async openProduct(productName) {
     await this.search(productName);
-    await expect(this.productByName(productName)).toBeVisible();
-    await this.productCards.filter({ hasText: productName }).first().click();
+    const card = this.productCards.filter({ hasText: productName }).first();
+    await expect(card).toBeVisible();
+    await card.click();
     await this.page.waitForURL(/\/product\//);
+    await expect(this.page.getByTestId('product-name')).toHaveText(productName);
   }
 }
 

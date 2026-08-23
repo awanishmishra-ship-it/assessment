@@ -26,13 +26,7 @@ class CheckoutPage extends BasePage {
   async fillAddress(user) {
     await this.country.selectOption({ value: user.country });
     await this.postalCode.fill(user.postalCode);
-
-    const postcodeLookup = this.page.waitForResponse(
-      (response) => /postcode/i.test(response.url()),
-      { timeout: 10_000 },
-    );
     await this.houseNumber.fill(user.houseNumber);
-    await postcodeLookup;
 
     await expect(this.street).not.toHaveValue('');
     await expect(this.city).not.toHaveValue('');
