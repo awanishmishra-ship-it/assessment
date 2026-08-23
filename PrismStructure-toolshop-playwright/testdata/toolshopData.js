@@ -1,7 +1,7 @@
 module.exports = {
   products: {
-    primary: 'Claw Hammer',
-    secondary: 'Combination Pliers',
+    primary: 'Combination Pliers',
+    secondary: 'Slip Joint Pliers',
   },
   checkout: {
     paymentMethod: 'cash-on-delivery',

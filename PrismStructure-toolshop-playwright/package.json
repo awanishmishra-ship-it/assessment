@@ -7,8 +7,8 @@
     "test": "playwright test",
     "test:ui": "playwright test --project=chromium",
     "test:api": "playwright test --project=api",
-    "test:smoke": "playwright test --grep @Smoke",
-    "test:regression": "playwright test --grep @Regression",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
     "test:list": "playwright test --list",
     "report": "playwright show-report"
   },

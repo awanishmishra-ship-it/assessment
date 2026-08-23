@@ -1,7 +1,7 @@
 const { test, expect } = require('../../fixtures/testFixtures');
 const testData = require('../../testdata/toolshopData');
 
-test('TC-API-01 @Smoke products can be retrieved', async ({ productsApi }) => {
+test('TC-API-01 @smoke products can be retrieved', async ({ productsApi }) => {
   const response = await productsApi.getProducts({
     between: 'price,1,100',
     by_name: testData.products.primary,
@@ -17,7 +17,7 @@ test('TC-API-01 @Smoke products can be retrieved', async ({ productsApi }) => {
   );
 });
 
-test('TC-API-02 @Regression unknown product returns not found', async ({
+test('TC-API-02 @regression unknown product returns not found', async ({
   productsApi,
 }) => {
   const response = await productsApi.getProduct('unknown-product-id');

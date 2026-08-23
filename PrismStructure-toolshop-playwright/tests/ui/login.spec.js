@@ -1,7 +1,7 @@
 const { test, expect } = require('../../fixtures/testFixtures');
 const { invalidLoginUser, uniqueUser } = require('../../utils/dataFactory');
 
-test('TC-UI-01 @Smoke register a unique user and log in', async ({
+test('TC-UI-01 @smoke register a unique user and log in', async ({
   registerPage,
   loginPage,
   page,
@@ -21,7 +21,7 @@ test('TC-UI-01 @Smoke register a unique user and log in', async ({
   await expect(loginPage.accountMenu).toContainText(user.firstName);
 });
 
-test('TC-UI-02 @Regression reject login with invalid credentials', async ({
+test('TC-UI-02 @regression reject login with invalid credentials', async ({
   loginPage,
   page,
 }) => {
